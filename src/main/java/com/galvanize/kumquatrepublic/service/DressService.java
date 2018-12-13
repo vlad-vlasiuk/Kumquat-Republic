@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class DressService {
@@ -21,8 +22,9 @@ public class DressService {
         this.brandRepo = brandRepo;
     }
 
-    public Iterable<Dress> findByBrand(Brand brand) {
-        return null;
+    public Iterable<Dress> findByBrand(String brand) {
+        List<Brand> allByName = brandRepo.findAllByName(brand);
+        return dressRepo.findAllByBrand(allByName.get(0));
     }
 
     public Iterable<Dress> findByColor(String color) {

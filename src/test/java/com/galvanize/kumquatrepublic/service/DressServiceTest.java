@@ -4,6 +4,7 @@ import com.galvanize.kumquatrepublic.entity.Brand;
 import com.galvanize.kumquatrepublic.entity.Dress;
 import com.galvanize.kumquatrepublic.repository.BrandRepo;
 import com.galvanize.kumquatrepublic.repository.DressRepo;
+import com.sun.org.apache.bcel.internal.generic.ALOAD;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -43,9 +45,12 @@ public class DressServiceTest {
     @Test
     public void findByBrandTest() {
         Brand mockBrand = new Brand("Gucci");
+        ArrayList<Brand> brands = new ArrayList<>(Arrays.asList(mockBrand));
         when(dressRepo.findAllByBrand(any())).thenReturn(new ArrayList<>());
-        dressService.findByBrand(mockBrand);
+        when(brandRepo.findAllByName(any())).thenReturn(brands);
+        dressService.findByBrand(mockBrand.getName());
         verify(dressRepo, times(1)).findAllByBrand(mockBrand);
+        verify(brandRepo, times(1)).findAllByName(mockBrand.getName());
     }
 
 }
