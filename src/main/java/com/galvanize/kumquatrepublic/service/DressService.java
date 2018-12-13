@@ -28,7 +28,7 @@ public class DressService {
     }
 
     public Iterable<Dress> findByColor(String color) {
-        return null;
+        return dressRepo.findAllByColor(color);
     }
 
     public Iterable<Dress> findByPrice(BigDecimal priceFrom, BigDecimal priceTo) {
