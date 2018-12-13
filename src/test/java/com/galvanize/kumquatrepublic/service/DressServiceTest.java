@@ -53,4 +53,13 @@ public class DressServiceTest {
         verify(brandRepo, times(1)).findAllByName(mockBrand.getName());
     }
 
+    @Test
+    public void findByColorTest() {
+        String mockColor = "yellow";
+        when(dressRepo.findAllByColor(any())).thenReturn(new ArrayList<>());
+        dressService.findByColor(mockColor);
+        verify(dressRepo, times(1)).findAllByColor(mockColor);
+    }
+
+
 }
